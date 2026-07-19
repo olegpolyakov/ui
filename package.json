@@ -13,7 +13,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "sass": "./dist/styles/_index.scss",
+      "sass": "./dist/index.css",
       "styles": "./dist/index.css",
       "types": "./dist/types/index.d.ts"
     },
