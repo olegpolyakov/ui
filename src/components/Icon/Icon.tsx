@@ -9,7 +9,7 @@ import styles from './Icon.module.scss';
 export type IconProps = {
     name?: string;
     color?: TextColor | 'inherit';
-    size?: SizeExtended | 'inherit';
+    size?: SizeExtended;
     opacity?: Opacity;
     weight?: number | string;
     grade?: number | string;
