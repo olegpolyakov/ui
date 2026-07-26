@@ -10,21 +10,19 @@ import Context from './ProviderContext';
 import styles from './Provider.module.scss';
 
 export type ProviderProps = {
-    root?: HTMLElement;
     theme?: Theme;
 };
 
 Provider.displayName = 'Provider';
 
 export default function Provider({
-    root: defaultRoot,
     theme: defaultTheme,
 
     children,
     className, 
     ...props
 }: Props<ProviderProps>) {
-    const [root, setRoot] = useState<HTMLElement | null>(defaultRoot ?? document.getElementById('root'));
+    const [root, setRoot] = useState<HTMLElement | null>(null);
     const [theme, setTheme] = useTheme(defaultTheme, root ?? undefined);
 
     const classNames = cn(
