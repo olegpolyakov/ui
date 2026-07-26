@@ -15,7 +15,11 @@ export function useTheme(
 
         return onThemeChange(newTheme => {
             if (!theme) {
-                root?.setAttribute('data-theme', newTheme);
+                setTheme(theme);
+                
+                if (root) {
+                    root.setAttribute('data-theme', newTheme);
+                }
             }
         });
     }, [theme, root]);
