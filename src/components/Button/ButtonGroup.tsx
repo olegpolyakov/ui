@@ -26,9 +26,9 @@ export default function ButtonGroup<T extends ElementType = 'div'>({
 
     buttons = [],
     orientation = 'horizontal',
-    gap,
     fluid,
     joined,
+    gap,
     color,
     size = 'm',
     shape,
