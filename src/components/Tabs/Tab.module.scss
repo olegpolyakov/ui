@@ -1,5 +1,6 @@
 @use 'base';
 @use 'component';
+@use 'elements';
 
 @use './Tab';
 
@@ -8,50 +9,31 @@
         box-sizing: border-box;
         position: relative;
         min-height: component.var(height);
-        font: inherit;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        align-self: stretch;
-        gap: component.var(gap);
-        text-align: center;
-        background: none;
-        cursor: pointer;
-        padding: 4px 16px;
         border: none;
-        border-radius: component.var(border-radius);
-        font-size: inherit;
-        line-height: inherit;
-        color: component.var(foreground-color);
-        flex: initial;
+        padding-inline: component.var(padding);
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
+        gap: component.var(gap);
+        border-radius: component.var(radius);
+        font-family: base.var(font-family);
+        font-size: component.var(font-size);
+        font-weight: component.var(font-weight);
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
 
-        &:hover {
-            background-color: var(--ui-Tab-hover-background-color);
-            color: var(--ui-Tab-hover-text-color);
-        }
-
-        &:active {
-            background-color: var(--ui-Tab-active-background-color);
-            color: var(--ui-Tab-active-text-color);
-        }
-        
-        &:disabled {
-            background-color: var(--ui-Tab-disabled-background-color);
-            color: var(--ui-Tab-disabled-text-color);
-        }
+        @include elements.interactive;
+        @include elements.disabled-state;
+        @include elements.slot-padding(component.var(padding), base.var(space-xs));
     }
 
-    .container {}
+    .start,
+    .content,
+    .end {
+        display: inline-flex;
+        align-items: center;
+    }
 
-    .content {}
-
-    .icon {}
-
-    .start {}
-
-    .end {}
-
-
-    // Sizes
+    @include component.sizes(Tab.$sizes);
 }

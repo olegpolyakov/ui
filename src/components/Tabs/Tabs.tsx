@@ -1,27 +1,48 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { cn } from '../../component';
-import type { ComponentProps, ElementType } from '../../types';
+import type { PropsWithChildren } from '../../types';
 
 import Context, { type TabValue } from './TabsContext';
 import Group, { TabGroupProps } from './TabGroup';
 import Panel from './TabPanel';
 
-import styles from './Tabs.module.scss';
-
 export type TabsProps = {
     value?: TabValue;
     defaultValue?: TabValue;
-    onChange?: (value: TabValue) => void;
-} & TabGroupProps;
+    
+    onChange?: (value: TabValue) => never;
+};
 
 Tabs.displayName = 'Tabs';
 Tabs.Group = Group;
 Tabs.Panel = Panel;
 
-export default function Tabs<T extends ElementType = 'div'>({
-    as,
-    className,
+type TabsPropsWithoutTabs = TabsProps & {
+    tabs: TabGroupProps['tabs'];
+    align?: never;
+    fluid?: never;
+    gap?: never;
+    color?: never;
+    activeColor?: never;
+    size?: never;
+    shape?: never;
+    variant?: never;
+    activeVariant?: never;
+};
+type TabsPropsWithTabs = TabsProps & {
+    tabs?: never;
+    align?: TabGroupProps['align'];
+    fluid?: TabGroupProps['fluid'];
+    gap?: TabGroupProps['gap'];
+    color?: TabGroupProps['color'];
+    activeColor?: TabGroupProps['activeColor'];
+    size?: TabGroupProps['size'];
+    shape?: TabGroupProps['shape'];
+    variant?: TabGroupProps['variant'];
+    activeVariant?: TabGroupProps['activeVariant'];
+};
+
+export default function Tabs({
     children,
 
     value,
@@ -29,9 +50,14 @@ export default function Tabs<T extends ElementType = 'div'>({
     tabs,
     align,
     fluid,
-    onChange,
-    ...props
-}: ComponentProps<TabsProps, T>) {
+    color,
+    activeColor,
+    size,
+    shape,
+    variant,
+    activeVariant,
+    onChange
+}: PropsWithChildren<TabsPropsWithoutTabs | TabsPropsWithTabs>) {
     const [selectedValue, setSelectedValue] = useState<TabValue>(value || defaultValue);
 
     useEffect(() => {
@@ -45,26 +71,23 @@ export default function Tabs<T extends ElementType = 'div'>({
         setSelectedValue
     }), [selectedValue]);
 
-    const Root = as || 'div';
-    const classNames = cn(
-        className,
-        {},
-        styles
-    );
-
     return (
-        <Root className={classNames} {...props}>
-            <Context.Provider value={contextValue}>
-                {tabs &&
-                    <Group
-                        tabs={tabs}
-                        align={align}
-                        fluid={fluid}
-                    />
-                }
-                
-                {children}
-            </Context.Provider>
-        </Root>
+        <Context.Provider value={contextValue}>
+            {tabs &&
+                <Group
+                    tabs={tabs}
+                    align={align}
+                    fluid={fluid}
+                    color={color}
+                    activeColor={activeColor}
+                    size={size}
+                    shape={shape}
+                    variant={variant}
+                    activeVariant={activeVariant}
+                />
+            }
+
+            {children}
+        </Context.Provider>
     );
 }

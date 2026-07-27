@@ -1,10 +1,17 @@
+@use 'base';
 @use 'component';
 
 @use './TabGroup';
 
 @include component.define(TabGroup, TabGroup.$vars) {    
     .root {
+        position: relative;
         display: flex;
+        gap: component.var(gap);
+    }
+
+    .tab {
+
     }
 
     .align {
@@ -21,13 +28,17 @@
         }
     }
 
-    .tab {
-
-    }
-
     .fluid {
+        width: 100%;
+
         .tab {
-            flex: 1;
+            flex: 1 1 auto;
         }
     }
+
+    @include component.gaps((
+        s: base.var(space-xxs),
+        m: base.var(space-xs),
+        l: base.var(space-s),
+    ));
 }

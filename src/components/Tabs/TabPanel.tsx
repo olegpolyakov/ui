@@ -5,7 +5,7 @@ import { cn } from '../../utils';
 
 import TabsContext from './TabsContext';
 
-import styles from './Tabs.module.scss';
+import styles from './TabPanel.module.scss';
 
 export type TabPanelProps = {
     value: string | number;

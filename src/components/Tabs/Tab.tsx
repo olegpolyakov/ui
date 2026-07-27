@@ -1,7 +1,7 @@
 import { MouseEvent, ReactNode, useCallback, useContext } from 'react';
 
 import { cn } from '../../component';
-import { Size, type ComponentProps, type Variant } from '../../types';
+import { Size, type ComponentProps, type PaletteColor, type Shape, type Variant } from '../../types';
 
 import Icon, { type IconProps } from '../Icon';
 import { Slot, type Slotted } from '../Slot';
@@ -16,9 +16,13 @@ export type TabProps = {
     icon?: Slotted<IconProps>;
     start?: ReactNode;
     end?: ReactNode;
-    size?: Size;
-    variant?: Variant;
     active?: boolean;
+    color?: PaletteColor;
+    activeColor?: PaletteColor;
+    size?: Size;
+    shape?: Shape;
+    variant?: Variant | 'underlined';
+    activeVariant?: Variant | 'underlined';
     disabled?: boolean;
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 };
@@ -35,8 +39,13 @@ export default function Tab({
     icon,
     start,
     end,
+    color,
+    activeColor = color,
     size = 'm',
+    shape,
     variant = 'plain',
+    activeVariant = variant,
+    active,
     onClick,
     ...props
 }: ComponentProps<TabProps, 'button'>) {
@@ -48,11 +57,14 @@ export default function Tab({
     }, [value, setSelectedValue, onClick]);
 
     const Root = as || 'button';
-    const classNames = cn(
-        className,
-        { variant, active: value === selectedValue },
-        styles
-    );
+    const isActive = active || value === selectedValue;
+    const classNames = cn(className, {
+        color: isActive ? activeColor : color,
+        size,
+        shape,
+        variant: isActive ? activeVariant : variant,
+        active: isActive
+    }, styles);
 
     return (
         <Root

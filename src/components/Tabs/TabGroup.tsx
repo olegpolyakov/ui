@@ -1,5 +1,5 @@
-import { cn } from '../../component';
-import type { Align, ComponentProps, ElementType, PropsWithKey } from '../../types';
+import { cn, renderChildren } from '../../component';
+import type { Align, ComponentProps, ElementType, PropsWithKey, Size } from '../../types';
 
 import Tab, { TabProps } from './Tab';
 
@@ -9,6 +9,13 @@ export type TabGroupProps = {
     tabs?: PropsWithKey<TabProps>[];
     align?: Align;
     fluid?: boolean;
+    gap?: Size;
+    color?: TabProps['color'];
+    size?: TabProps['size'];
+    shape?: TabProps['shape'];
+    variant?: TabProps['variant'];
+    activeColor?: TabProps['activeColor'];
+    activeVariant?: TabProps['activeVariant'];
 };
 
 TabGroup.displayName = 'TabGroup';
@@ -18,9 +25,16 @@ export default function TabGroup<T extends ElementType = 'div'>({
     className,
     children,
 
-    tabs,
+    tabs = [],
     align,
     fluid,
+    color,
+    activeColor,
+    size,
+    shape,
+    variant,
+    activeVariant,
+    gap = variant === 'underlined' ? undefined : 's',
     ...props
 }: ComponentProps<TabGroupProps, T>) {
     const Component = as || 'div';
@@ -28,21 +42,23 @@ export default function TabGroup<T extends ElementType = 'div'>({
         className,
         {
             [`align-${align}`]: align,
-            fluid
+            fluid,
+            gap
         },
         styles
     );
 
     return (
         <Component className={classNames} {...props}>
-            {tabs?.map(({ key, ...rest }) =>
-                <Tab
-                    key={key}
-                    {...rest}
-                />
-            )}
-
-            {children}
+            {renderChildren(children, tabs, Tab, {
+                className: styles.tab,
+                color,
+                activeColor,
+                size,
+                shape,
+                variant,
+                activeVariant
+            })}
         </Component>
     );
 }
