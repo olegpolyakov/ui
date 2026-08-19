@@ -54,7 +54,10 @@ export default defineConfig({
         },
         preprocessorOptions: {
             scss: {
-                loadPaths: [path.resolve(__dirname, 'src/styles')]
+                loadPaths: [path.resolve(__dirname, 'src/styles')],
+                silenceDeprecations: [
+                    'if-function'
+                ]
             }
         }
     },
