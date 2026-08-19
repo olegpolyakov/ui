@@ -85,7 +85,7 @@ export default function Input({
     const handleInvalid = useCallback((event: InvalidEvent<HTMLInputElement>) => {
         event.preventDefault();
         setInvalid(true);
-        setValidationMessage(event.target.validationMessage);
+        setValidationMessage((event.target as HTMLInputElement).validationMessage);
         onInvalid?.(event);
     }, [onInvalid]);
 
