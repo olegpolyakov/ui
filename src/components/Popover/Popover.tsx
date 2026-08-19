@@ -189,7 +189,7 @@ export default function Popover({
 
         onOpen?.(internalPlacement);
         trigger?.props.onClick?.(event);
-    }, [trigger, isUncontrolled, internalPlacement, onOpen]);
+    }, [trigger, isUncontrolled, internalPlacement, setInternalOpen, onOpen]);
 
     const handlePopoverClick = useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
