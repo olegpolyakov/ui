@@ -1,6 +1,6 @@
 {
   "name": "@olegpolyakov/ui",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A set of accessible, customizable, and easy-to-use React components.",
   "type": "module",
   "main": "./dist/index.js",
