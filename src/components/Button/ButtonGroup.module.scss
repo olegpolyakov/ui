@@ -14,8 +14,6 @@
     }
 
     .button {
-        flex: 1 1 auto;
-
         &:hover,
         &:active {
             z-index: 1;
@@ -24,6 +22,10 @@
 
     .fluid {
         width: 100%;
+
+        .button {
+            flex: 1 1 auto;
+        }
     }
 
     .horizontal {
