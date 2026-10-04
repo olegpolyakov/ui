@@ -26,6 +26,7 @@ export default function ButtonGroup<T extends ElementType = 'div'>({
 
     buttons = [],
     orientation = 'horizontal',
+    align,
     fluid,
     joined,
     gap,
@@ -38,6 +39,7 @@ export default function ButtonGroup<T extends ElementType = 'div'>({
     const Root = as || 'div';
     const classNames = cn(className, {
         [orientation]: orientation,
+        [`align-${align}`]: align,
         fluid,
         joined,
         gap

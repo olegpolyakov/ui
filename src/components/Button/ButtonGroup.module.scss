@@ -40,6 +40,32 @@
         gap: 0;
     }
 
+    .align {
+        &-start {
+            justify-content: start;
+        }
+
+        &-center {
+            justify-content: center;
+        }
+
+        &-end {
+            justify-content: end;
+        }
+
+        &-around {
+            justify-content: space-around;
+        }
+
+        &-between {
+            justify-content: space-between;
+        }
+
+        &-evenly {
+            justify-content: space-evenly;
+        }
+    }
+
     .joined.horizontal {
         .button {
             &:first-child {
