@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from '../../types';
+import type { ComponentProps } from '../../types';
 import { cn } from '../../utils';
 
 import useScrollable from './useScrollable';
@@ -13,7 +13,8 @@ export type ScrollableProps = {
     native?: boolean;
 };
 
-export default function Scrollable({
+export default function Scrollable<T extends React.ElementType = 'div'>({
+    as,
     children,
     className,
 
@@ -23,9 +24,10 @@ export default function Scrollable({
     fade,
     native,
     ...props
-}: PropsWithChildren<ScrollableProps>) {
+}: ComponentProps<ScrollableProps, T>) {
     const ref = useScrollable<HTMLDivElement>();
-
+    
+    const Root = as || 'div';
     const classNames = cn(
         className,
         styles.root,
@@ -39,7 +41,7 @@ export default function Scrollable({
     };
 
     return (
-        <div
+        <Root
             ref={ref}
             className={classNames}
             style={style}
@@ -47,6 +49,6 @@ export default function Scrollable({
             {...props}
         >
             {children}
-        </div>
+        </Root>
     );
 }
