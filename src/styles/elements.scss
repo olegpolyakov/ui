@@ -93,3 +93,85 @@
         }
     }
 }
+
+@mixin scrollbar(
+    $width: 8px,
+    $track-color: var(--ui-tinted-color),
+    $thumb-color: var(--ui-outlined-color),
+    $thumb-hover-color: var(--ui-outlined-active-hover-color)
+) {
+    &::-webkit-scrollbar {
+        width: $width;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $track-color;
+        border-radius: 8px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        height: 56px;
+        border: 2px solid transparent;
+        border-radius: 8px;
+        background-clip: content-box;
+        background-color: $thumb-color;
+    
+        &:hover {
+            background-color: $thumb-hover-color;
+        }
+    }
+}
+
+@mixin scroll-fade-static(
+    $fade-size: 40px,
+    $scrollbar-size: 8px
+) {
+    $gradient: linear-gradient(to bottom, transparent 0%, white #{$fade-size}, white calc(100% - #{$fade-size}), transparent 100%);
+    $solid: linear-gradient(white, white);
+
+    -webkit-mask-image: $gradient, $solid;
+    -webkit-mask-position: left top, right top;
+    -webkit-mask-size: calc(100% - #{$scrollbar-size}) 100%, $scrollbar-size 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-image: $gradient, $solid;
+    mask-position: left top, right top;
+    mask-size: calc(100% - #{$scrollbar-size}) 100%, $scrollbar-size 100%;
+    mask-repeat: no-repeat;
+}
+
+@mixin scroll-fade-dynamic(
+    $fade-size: 40px,
+    $scrollbar-zone: 16px
+) {
+    $solid-right: linear-gradient(white, white);
+    $top-fade:  linear-gradient(to bottom, transparent 0%, white #{$fade-size}, white 100%);
+    $bottom-fade: linear-gradient(to bottom, white 0%, white calc(100% - #{$fade-size}), transparent 100%);
+    $both-fade: linear-gradient(to bottom, transparent 0%, white #{$fade-size}, white calc(100% - #{$fade-size}), transparent 100%);
+
+    -webkit-mask-position: left top, right top;
+    -webkit-mask-size: calc(100% - #{$scrollbar-zone}) 100%, $scrollbar-zone 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: left top, right top;
+    mask-size: calc(100% - #{$scrollbar-zone}) 100%, $scrollbar-zone 100%;
+    mask-repeat: no-repeat;
+
+    &.top-fade.bottom-fade {
+        mask-image: $both-fade, $solid-right;
+        -webkit-mask-image: $both-fade, $solid-right;
+    }
+
+    &.top-fade:not(.bottom-fade) {
+        mask-image: $top-fade, $solid-right;
+        -webkit-mask-image: $top-fade, $solid-right;
+    }
+
+    &.bottom-fade:not(.top-fade) {
+        mask-image: $bottom-fade, $solid-right;
+        -webkit-mask-image: $bottom-fade, $solid-right;
+    }
+
+    &:not(.top-fade):not(.bottom-fade) {
+        mask-image: none;
+        -webkit-mask-image: none;
+    }
+}

@@ -14,8 +14,6 @@
     }
 
     .button {
-        flex: 1 1 auto;
-
         &:hover,
         &:active {
             z-index: 1;
@@ -24,6 +22,10 @@
 
     .fluid {
         width: 100%;
+
+        .button {
+            flex: 1 1 auto;
+        }
     }
 
     .horizontal {
@@ -36,6 +38,32 @@
 
     .joined {
         gap: 0;
+    }
+
+    .align {
+        &-start {
+            justify-content: start;
+        }
+
+        &-center {
+            justify-content: center;
+        }
+
+        &-end {
+            justify-content: end;
+        }
+
+        &-around {
+            justify-content: space-around;
+        }
+
+        &-between {
+            justify-content: space-between;
+        }
+
+        &-evenly {
+            justify-content: space-evenly;
+        }
     }
 
     .joined.horizontal {

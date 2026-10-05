@@ -1,0 +1,65 @@
+@use '../base';
+@use '../colors';
+@use '../colors/palettes';
+@use '../colors/states';
+@use '../utils/css';
+
+@mixin classes {
+    .underlined {
+        @include styles(plain, plain);
+
+        &-active {
+            @include styles(foreground, plain);
+        }
+
+        &-static {
+            @include styles(outlined, plain, $static: true);
+        }
+
+        @each $palette in palettes.$names {
+            &-#{$palette} {
+                @include styles(outlined-#{$palette}, plain-#{$palette});
+
+                &-active {
+                    @include styles(filled-#{$palette}, plain-#{$palette});
+                }
+
+                &-static {
+                    @include styles(outlined-#{$palette}, plain-#{$palette}, $static: true);
+                }
+            }
+        }
+    }
+}
+
+@mixin styles($border-color, $background-color, $static: false, $args...) {
+    border-bottom: 1px solid #{base.var(#{$border-color}-color)};
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: base.var(#{$background-color}-color);
+
+    @if $static == false {
+        &:hover {
+            border-color: base.var(#{$border-color}-color);
+            background-color: base.var(#{$background-color}-hover-color);
+        }
+
+        &:active {
+            border-color: base.var(#{$border-color}-color);
+            background-color: base.var(#{$background-color}-active-color);
+        }
+    }
+}
+
+@mixin vars(
+    $border-color,
+    $postfix: '',
+    $args...
+) {
+    $name: 'underlined#{$postfix}';
+    $active-border-color: states.active-color($border-color);
+
+    @include colors.var(#{$name}-color, $border-color);
+    @include states.vars(#{$name}-active-color, $active-border-color);
+    @include states.vars(#{$name}-color, $border-color, $args...);
+}

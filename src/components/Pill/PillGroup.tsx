@@ -45,15 +45,15 @@ export default function PillGroup<T extends ElementType = 'div'>({
 
     return (
         <Root className={classNames} {...props}>
-            {shownChildren?.map(pill =>
+            {shownChildren?.map(({ key, ...rest }) =>
                 <Pill
-                    key={pill.key}
+                    key={key}
                     className={styles.pill}
                     shape={shape}
                     size={size}
                     variant={variant}
                     interactive={interactive}
-                    {...pill}
+                    {...rest}
                 />
             )}
 

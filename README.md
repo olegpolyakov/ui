@@ -1,4 +1,4 @@
-# Kantan UI
+# OP UI
 
 A set of accessible, customizable, and easy-to-use React components.
 
@@ -8,7 +8,7 @@ A set of accessible, customizable, and easy-to-use React components.
 ## Installation
 
 ```sh
-npm i kantanui
+npm i @olegpolyakov/ui
 ```
 
 ## Usage
@@ -20,16 +20,16 @@ Outlined font:
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..200,0..1">
 ```
 
-Start using Kantan UI components by importing the CSS file in the root of your application:
+Start using the UI components by importing the CSS file in the root of your application:
 
 ```jsx
-import "kantanui/dist/index.css";
+import "@olegpolyakov/ui/styles";
 ```
 
 Then, import and use the components you need:
 
 ```jsx
-import { Button } from "kantanui";
+import { Button } from "@olegpolyakov/ui";
 
 <Button>Button</Button>;
 ```

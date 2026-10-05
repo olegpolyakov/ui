@@ -1,5 +1,5 @@
 import { cn, renderChildren } from '../../component';
-import type { ComponentProps, ElementType, Orientation, PropsWithKey, Size } from '../../types';
+import type { ComponentProps, ElementType, Orientation, PropsWithKey, Size, Align } from '../../types';
 
 import Button, { ButtonProps } from './Button';
 
@@ -8,6 +8,7 @@ import styles from './ButtonGroup.module.scss';
 export type ButtonGroupProps = {
     buttons?: PropsWithKey<ButtonProps>[];
     orientation?: Orientation;
+    align?: Align | 'around' | 'between' | 'evenly';
     gap?: Size;
     fluid?: boolean;
     joined?: boolean;
@@ -26,9 +27,10 @@ export default function ButtonGroup<T extends ElementType = 'div'>({
 
     buttons = [],
     orientation = 'horizontal',
-    gap,
+    align,
     fluid,
     joined,
+    gap,
     color,
     size = 'm',
     shape,
@@ -38,6 +40,7 @@ export default function ButtonGroup<T extends ElementType = 'div'>({
     const Root = as || 'div';
     const classNames = cn(className, {
         [orientation]: orientation,
+        [`align-${align}`]: align,
         fluid,
         joined,
         gap

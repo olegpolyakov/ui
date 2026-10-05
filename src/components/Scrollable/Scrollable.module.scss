@@ -1,0 +1,19 @@
+@use 'elements';
+
+.root {
+    overflow: hidden auto;
+    @include elements.scrollbar;
+}
+
+.disabled {
+    overflow: hidden;
+}
+
+.fade {
+    @include elements.scroll-fade-dynamic;
+}
+
+.native {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ui-tinted-active-color) var(--ui-tinted-color);
+}

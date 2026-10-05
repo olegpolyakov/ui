@@ -1,0 +1,21 @@
+@use 'base';
+@use 'component';
+@use 'motion';
+
+@use './Screen';
+
+@include component.define(Screen, Screen.$vars) {
+    .root {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .full {
+        width: 100dvw;
+        height: 100dvh;
+    }
+}

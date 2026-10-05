@@ -1,0 +1,18 @@
+import Demo from '@/components/Demo';
+import Section from '@/components/Section';
+
+import Scrollable from '~/components/Scrollable';
+
+# Scrollable
+
+Scrollable is a component that allows users to scroll through a list of items or content that exceeds the visible area.
+
+<Demo settings={Scrollable.settings}>
+  <Scrollable height={200}>
+    {Array.from({ length: 20 }, (_, i) => (
+      <Section key={i} title={`Item ${i + 1}`}>
+        <p>This is the content of item {i + 1}.</p>
+      </Section>
+    ))}
+  </Scrollable>
+</Demo>

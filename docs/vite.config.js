@@ -6,7 +6,7 @@ import { parse } from 'react-docgen-typescript';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig(({ command }) => ({
-    base: command === 'build' ? '/kantanui/' : '/',
+    base: command === 'build' ? '/ui/' : '/',
     root: path.resolve(__dirname, 'src'),
     build: {
         outDir: path.resolve(__dirname, 'dist'),
@@ -33,11 +33,11 @@ export default defineConfig(({ command }) => ({
                 }
 
                 if (file === 'classes') {
-                    return `kui-${name}`;
+                    return `ui-${name}`;
                 } else if (name === 'root') {
-                    return `kui-${file}`;
+                    return `ui-${file}`;
                 } else {
-                    return `kui-${file}-${name}`;
+                    return `ui-${file}-${name}`;
                 }
             }
         },
@@ -82,7 +82,7 @@ function docgen() {
             if (
                 id.includes('node_modules') ||
                 !id.endsWith('.tsx') ||
-                !id.includes('/kantanui/src/components/')
+                !id.includes('/ui/src/components/')
             ) {
                 return null;
             }

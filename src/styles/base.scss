@@ -3,7 +3,7 @@
 @use './utils/css';
 @use './utils/type';
 
-$prefix: 'kui' !default;
+$prefix: 'ui' !default;
 $root: ':root' !default;
 $theme: null !default;
 $sizes: (xxs, xs, s, m, l, xl, xxl);

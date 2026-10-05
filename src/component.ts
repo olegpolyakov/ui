@@ -95,7 +95,7 @@ export function getComponentClassNames(
         color?: PaletteColor | TextColor;
         size?: Size | SizeExtended | SizeFull | 'inherit';
         shape?: Shape;
-        variant?: Variant | 'text';
+        variant?: Variant | 'text' | 'underlined';
 
         shadow?: Shadow;
         shadowHover?: Shadow;
@@ -174,7 +174,7 @@ export function getComponentClassNames(
 }
 
 function getVariantClassNames(
-    variant: Variant | 'text' | undefined,
+    variant: Variant | 'text' | 'underlined' | undefined,
     color: PaletteColor | TextColor | undefined,
     active: boolean | undefined,
     nonInteractive: boolean | undefined,

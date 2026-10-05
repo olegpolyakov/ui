@@ -5,14 +5,14 @@
 @use 'base';
 @use 'component';
 
-// (font-size, line-height)
-$xxs: (10px, 14px) !default;
-$xs: (12px, 16px) !default;
-$s: (14px, 18px) !default;
-$m: (16px, 22px) !default;
-$l: (20px, 26px) !default;
-$xl: (24px, 30px) !default;
-$xxl: (28px, 34px) !default;
+// (font-size, line-height, gap)
+$xxs: (10px, 14px, base.var(space-xxs)) !default;
+$xs: (12px, 16px, base.var(space-xxs)) !default;
+$s: (14px, 18px, base.var(space-xs)) !default;
+$m: (16px, 22px, base.var(space-xs)) !default;
+$l: (20px, 26px, base.var(space-xs)) !default;
+$xl: (24px, 30px, base.var(space-s)) !default;
+$xxl: (28px, 34px, base.var(space-s)) !default;
 
 $sizes: (
     xxs: $xxs,
@@ -25,7 +25,7 @@ $sizes: (
 );
 
 $color: initial !default;
-$font: initial !default;
+$font: base.var(font-family) !default;
 $size: initial !default;
 $weight: initial !default;
 $height: base.var(line-height) !default;
@@ -42,7 +42,7 @@ $vars: component.vars(Text, (
     gap: $gap
 ));
 
-@mixin text($size: m, $weight: normal) {
+@mixin text($size: m, $weight: normal, $color: primary) {
     $_sizes: map.get($sizes, $size);
     $font-size: list.nth($_sizes, 1);
     $line-height: list.nth($_sizes, 2);
@@ -51,4 +51,5 @@ $vars: component.vars(Text, (
     font-size: $font-size;
     font-weight: map.get(base.$font-weights, $weight);
     line-height: math.div($line-height, $font-size);
+    color: base.var(foreground-#{$color}-color);
 }

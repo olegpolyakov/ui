@@ -1,4 +1,3 @@
-@forward './Tabs';
 @forward './Tab' as tab-*;
-@forward './TabPanel' as panel-*;
-@forward './TabsList' as list-*;
+@forward './TabGroup' as tab-group-*;
+@forward './TabPanel' as tab-panel-*;

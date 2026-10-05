@@ -14,10 +14,10 @@ export default function Portal({
     container,
     children
 }: ComponentProps<PortalProps, 'div'>) {
-    const { rootElement } = useContext(ProviderContext);
+    const { root } = useContext(ProviderContext);
 
     return createPortal(
         children,
-        container || rootElement || document.body
+        container || root || document.body
     );
 }

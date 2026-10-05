@@ -1,5 +1,0 @@
-@use 'component';
-
-@use './Tabs';
-
-@include component.define(Tabs, Tabs.$vars);

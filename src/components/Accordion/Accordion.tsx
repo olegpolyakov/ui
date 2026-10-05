@@ -31,11 +31,11 @@ export default function Accordion<T extends ElementType = 'div'>({
 
     return (
         <Root className={classNames} {...props}>
-            {resolveChildren(children, items, AccordionItem).map((item, index) =>
+            {resolveChildren(children, items, AccordionItem).map(({ key, ...rest }, index) =>
                 <AccordionItem
-                    key={item.key || index}
+                    key={key || index}
                     size={size}
-                    {...item}
+                    {...rest}
                 />
             )}
         </Root>

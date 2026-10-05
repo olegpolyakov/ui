@@ -11,6 +11,7 @@ import {
 } from 'react';
 
 import { cn } from '../../component';
+import { useComposedRef } from '../../hooks/ref';
 import type { ComponentProps, Shape, Size } from '../../types';
 
 import Textbox from '../Textbox';
@@ -52,10 +53,12 @@ export default function Textarea({
     onBlur,
     onInvalid,
 
+    ref,
     className,
     ...props
 }: ComponentProps<TextareaProps, 'textarea'>) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const forkedRef = useComposedRef(textareaRef, ref);
 
     const [internalValue, setInternalValue] = useState(value || defaultValue || '');
     const [validationMessage, setValidationMessage] = useState('');
@@ -136,7 +139,7 @@ export default function Textarea({
             validationMessage={validationMessage}
         >
             <textarea
-                ref={textareaRef}
+                ref={forkedRef}
                 className={classNames}
                 value={value}
                 defaultValue={defaultValue}

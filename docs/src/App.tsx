@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, useLocation } from 'react-router-dom';
 
-import { Button, ButtonGroup, Drawer, Heading, Icon, Item, List, Provider, Text, Tooltip } from '~/components';
+import { Button, ButtonGroup, Drawer, Heading, Icon, Item, List, Logo, Provider, Scrollable, Text, Tooltip } from '~/components';
 import type { Theme } from '~/theme';
 import { useIsMobile } from '~/hooks/media';
 
@@ -25,14 +25,16 @@ export default function App() {
                         header={null}
                         closeButton={null}
                         closeOnClickOutside
+                        scrollable={false}
                         onClose={() => setIsDrawerOpen(false)}
                     >
                         <header className={styles.header}>
                             <Heading
                                 as={Link}
                                 to="/"
+                                start={<Logo size="l" />}
                                 className={styles.title}
-                                content="Kantan UI"
+                                content="OP UI"
                                 size="m"
                             />
 
@@ -49,13 +51,15 @@ export default function App() {
                                     </Tooltip>
                                 </Button>
 
-                                <Button as="a" href="https://github.com/olegpolyakov/kantanui" target='_blank' icon>
+                                <Button as="a" href="https://github.com/olegpolyakov/ui" target="_blank" icon>
                                     <GitHubIcon />
                                 </Button>
                             </ButtonGroup>
                         </header>
 
-                        <Nav onItemClick={() => setIsDrawerOpen(false)} />
+                        <Scrollable fade>
+                            <Nav onItemClick={() => setIsDrawerOpen(false)} />
+                        </Scrollable>
                     </Drawer>
 
                     <main className={styles.main}>
@@ -107,33 +111,33 @@ function Nav({ onItemClick }: { onItemClick?: () => void }) {
         <nav ref={ref} className={styles.nav}>
             {routes.map(route => route.routes
                 ? (<>
-                        <Text
-                            className={styles.subtitle}
-                            content={route.name}
-                            color="secondary"
-                            size="xxs"
-                            decorative
-                            uppercase
-                        />
+                    <Text
+                        className={styles.subtitle}
+                        content={route.name}
+                        color="secondary"
+                        size="xxs"
+                        decorative
+                        uppercase
+                    />
 
-                        <List as="div">
-                            {route.routes.filter(route => !route.hidden).map(route => 
-                                <Item
-                                    key={route.path}
-                                    className={styles.link}
-                                    as={Link}
-                                    to={route.path}
-                                    content={route.title}
-                                    shape="rectangular"
-                                    active={location.pathname === route.path}
-                                    size="m"
-                                    variant="plain"
-                                    interactive
-                                    onClick={onItemClick}
-                                />
-                            )}
-                        </List>
-                    </>)
+                    <List as="div">
+                        {route.routes.filter(route => !route.hidden).map(route => 
+                            <Item
+                                key={route.path}
+                                className={styles.link}
+                                as={Link}
+                                to={route.path}
+                                content={route.title}
+                                shape="rectangular"
+                                active={location.pathname === route.path}
+                                size="m"
+                                variant="plain"
+                                interactive
+                                onClick={onItemClick}
+                            />
+                        )}
+                    </List>
+                </>)
                 : (
                     <Item
                         key={route.path}

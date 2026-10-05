@@ -24,8 +24,8 @@ export default function Palette({
                             key={level}
                             name={level.toString()}
                             style={{
-                                backgroundColor: `var(--kui-${name}-${level}-color)`,
-                                color: `var(--kui-${name}-${level}-contrast-color)`
+                                backgroundColor: `var(--ui-${name}-${level}-color)`,
+                                color: `var(--ui-${name}-${level}-contrast-color)`
                             }}
                         />
                     )}
@@ -38,8 +38,8 @@ export default function Palette({
                                 key={level}
                                 name={`a${level.toString()}`}
                                 style={{
-                                    backgroundColor: `var(--kui-${name}-a${level}-color)`,
-                                    color: `var(--kui-${name}-a${level}-contrast-color)`
+                                    backgroundColor: `var(--ui-${name}-a${level}-color)`,
+                                    color: `var(--ui-${name}-a${level}-contrast-color)`
                                 }}
                             />
                         )}

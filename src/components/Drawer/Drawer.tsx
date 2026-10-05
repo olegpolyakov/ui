@@ -3,9 +3,11 @@ import { ReactNode, useCallback, useRef, type MouseEventHandler } from 'react';
 import { cn as ccn } from '../../component';
 import type { BaseColor, ComponentProps, ElementType, Shadow, Shape, Size, SizeExtended, Slotted } from '../../types';
 
+import { isBoolean, isObject } from '../../utils';
 import Button, { ButtonProps } from '../Button';
 import Heading, { HeadingProps } from '../Heading';
 import Modal from '../Modal';
+import Scrollable, { ScrollableProps } from '../Scrollable';
 import Slot from '../Slot';
 import Transition from '../Transition';
 
@@ -16,6 +18,7 @@ export type DrawerProps = {
     title?: Slotted<HeadingProps>;
     header?: ReactNode;
     content?: ReactNode;
+    footer?: ReactNode;
     closeButton?: Slotted<ButtonProps>;
     type?: 'inline' | 'overlay' | 'modal';
     position?: 'left' | 'right' | 'top' | 'bottom';
@@ -25,6 +28,7 @@ export type DrawerProps = {
     shadow?: Shadow;
     backdrop?: boolean;
     inset?: boolean;
+    scrollable?: boolean | ScrollableProps;
     closeOnClickOutside?: boolean;
     onClose?: () => void;
 };
@@ -43,9 +47,10 @@ export default function Drawer<T extends ElementType = 'div'>({
     children,
 
     open,
-    content = children,
-    header,
     title,
+    header,
+    content = children,
+    footer,
     closeButton = { icon: 'close' },
     type = 'inline',
     position = 'left',
@@ -55,6 +60,7 @@ export default function Drawer<T extends ElementType = 'div'>({
     shape,
     backdrop = true,
     inset = false,
+    scrollable = true,
     closeOnClickOutside = false,
     onClose,
     ...props
@@ -140,9 +146,24 @@ export default function Drawer<T extends ElementType = 'div'>({
                         </div>
                     }
 
-                    <div className={styles.content}>
-                        {content}
-                    </div>
+                    {isBoolean(scrollable) ?
+                        <Scrollable className={styles.content}>
+                            {content}
+                        </Scrollable> :
+                        isObject(scrollable) ?
+                            <Scrollable className={styles.content} {...scrollable}>
+                                {content}
+                            </Scrollable> :
+                            <div className={styles.content}>
+                                {content}
+                            </div>
+                    }
+
+                    {footer &&
+                        <div className={styles.footer}>
+                            {footer}
+                        </div>
+                    }
                 </div>
             </Transition>
         </Component>

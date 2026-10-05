@@ -1,21 +1,45 @@
-import { UniqueIdentifier } from '@dnd-kit/abstract';
-import { DragDropProvider, type DragEndEvent } from '@dnd-kit/react';
+import { useCallback, type ComponentPropsWithRef, type ReactElement } from 'react';
+
+import { UniqueIdentifier, type Draggable } from '@dnd-kit/abstract';
+import { DragDropProvider, DragOverlay, type DragEndEvent } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 
-import List, { ListProps } from './List';
-import { ItemProps, SortableItem } from '../Item';
-import { useCallback } from 'react';
+import type { ComponentProps, ElementType } from '../../types';
 
-export type SortableListProps = Omit<ListProps, 'items'> & {
-    items: ItemProps & { id: UniqueIdentifier }[];
+import Icon from '../Icon';
+import Item, { ItemProps } from '../Item';
+import List from './List';
+import Sortable, { type SortableApi } from '../Sortable';
+
+import styles from './SortableList.module.scss';
+
+const config = {
+    alignment: {
+        x: 'start',
+        y: 'center'
+    },
+    transition: {
+        idle: true
+    }
+} as const;
+
+export type SortableListProps = Omit<ComponentPropsWithRef<typeof List>, 'items'> & {
+    items: (ItemProps & { id: UniqueIdentifier })[];
+    renderItem?: (item: ItemProps & { id: UniqueIdentifier }, sortable: SortableApi) => ReactElement;
+    renderOverlay?: (draggable: Draggable, childrenCount: number) => ReactElement;
     onChange: (ids: UniqueIdentifier[]) => void;
 };
 
-export default function SortableList({
+export default function SortableList<T extends ElementType = 'ul'>({
+    size,
+    shape,
+    variant,
     items,
+    renderItem,
+    renderOverlay,
     onChange,
     ...props
-}: SortableListProps) {
+}: ComponentProps<SortableListProps, T>) {
     const handleDragEnd = useCallback((event: DragEndEvent) => {
         if (event.canceled) return;
 
@@ -35,16 +59,48 @@ export default function SortableList({
 
     return (
         <DragDropProvider onDragEnd={handleDragEnd}>
-            <List {...props}>
+            <List className={styles.root} {...props}>
                 {items.map((item, index) => (
-                    <SortableItem
+                    <Sortable
                         key={item.id}
-                        {...item}
+                        id={item.id}
                         index={index}
-                        interactive
-                    />
+                        {...config}
+                    >
+                        {sortable => renderItem?.(item, sortable) ?? (
+                            <Item
+                                start={
+                                    <Icon
+                                        className={styles.handle}
+                                        ref={sortable.handleRef}
+                                        name="drag_indicator"
+                                        size="s"
+                                    />
+                                }
+                                content={item.content}
+                                size={size}
+                                shape={shape}
+                                variant={variant}
+                                interactive
+                                aria-hidden={sortable.isDragSource}
+                            />
+                        )}
+                    </Sortable>
                 ))}
             </List>
+
+            <DragOverlay style={{ width: 'fit-content' }}>
+                {draggable => renderOverlay?.(draggable, items.length) ?? (
+                    <Item
+                        start={
+                            <Icon name="drag_indicator" size="s" />
+                        }
+                        content={items.find(i => i.id === draggable.id)!.content}
+                        active
+                        data-overlay
+                    />
+                )}
+            </DragOverlay>
         </DragDropProvider>
     );
 }

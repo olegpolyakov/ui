@@ -1,3 +1,8 @@
+@use 'base';
 @use 'component';
 
-$vars: component.vars(TabGroup, ());
+$gap: 0px !default;
+
+$vars: component.vars(TabGroup, (
+    gap: $gap
+));

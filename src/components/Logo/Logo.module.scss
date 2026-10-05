@@ -1,0 +1,16 @@
+@use 'base';
+@use 'component';
+
+@use './Logo';
+
+@include component.define(Logo, Logo.$vars) {
+    .root {
+        display: inline-block;
+        color: component.var(color);
+        width: component.var(size);
+        height: component.var(size);
+    }
+
+    @include component.palettes-vars(color);
+    @include component.sizes(Logo.$sizes);
+}

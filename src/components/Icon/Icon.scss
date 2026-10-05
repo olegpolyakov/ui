@@ -33,7 +33,7 @@ $sizes: (
 
 $font: 'Material Symbols Outlined' !default;
 $color: base.var(foreground-color) !default;
-$size: map.get($m, size) !default;
+$size: inherit !default;
 
 $vars: component.vars(Icon, (
     font: $font,

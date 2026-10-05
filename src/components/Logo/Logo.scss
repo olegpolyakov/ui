@@ -1,0 +1,30 @@
+@use 'sass:map';
+
+@use 'base';
+@use 'component';
+
+$xxs: (size: 8px) !default;
+$xs: (size: 12px) !default;
+$s: (size: 16px) !default;
+$m: (size: 24px) !default;
+$l: (size: 32px) !default;
+$xl: (size: 40px) !default;
+$xxl: (size: 48px) !default;
+
+$sizes: (
+    xxs: $xxs,
+    xs: $xs,
+    s: $s,
+    m: $m,
+    l: $l,
+    xl: $xl,
+    xxl: $xxl
+);
+
+$color: currentColor !default;
+$size: map.get($m, size) !default;
+
+$vars: component.vars(Logo, (
+    color: $color,
+    size: $size
+));

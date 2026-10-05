@@ -39,6 +39,7 @@ import ProgressBar from './pages/components/ProgressBar.mdx';
 import ProgressCircle from './pages/components/ProgressCircle.mdx';
 import Radio from './pages/components/Radio.mdx';
 import Select from './pages/components/Select.mdx';
+import Scrollable from './pages/components/Scrollable.mdx';
 import Slider from './pages/components/Slider.mdx';
 import Spinner from './pages/components/Spinner.mdx';
 import State from './pages/components/State.mdx';
@@ -101,6 +102,7 @@ export default [
             { path: '/progress-bar', component: ProgressBar, title: 'Progress Bar' },
             { path: '/progress-circle', component: ProgressCircle, title: 'Progress Circle' },
             { path: '/radio', component: Radio, title: 'Radio' },
+            { path: '/scrollable', component: Scrollable, title: 'Scrollable' },
             { path: '/select', component: Select, title: 'Select' },
             { path: '/slider', component: Slider, title: 'Slider' },
             { path: '/spinner', component: Spinner, title: 'Spinner' },

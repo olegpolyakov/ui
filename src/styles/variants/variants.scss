@@ -12,6 +12,7 @@
 @use './tinted';
 @use './outlined-tinted';
 @use './text';
+@use './underlined';
 
 $names: (
     plain,
@@ -19,7 +20,8 @@ $names: (
     outlined,
     tinted,
     outlined-tinted,
-    text
+    text,
+    underlined
 ) !default;
 
 @mixin define($names: $names) {
@@ -61,6 +63,11 @@ $names: (
     @include text.vars(
         $foreground-color,
         $background-color,
+        $postfix: $postfix
+    );
+
+    @include underlined.vars(
+        $border-color,
         $postfix: $postfix
     );
 }

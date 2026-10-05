@@ -49,11 +49,13 @@
     @each $size, $values in Heading.$sizes {
         $font-size: list.nth($values, 1);
         $line-height: list.nth($values, 2);
+        $gap: list.nth($values, 3);
 
         .#{$size} {
             @include component.vars((
                 size: rem($font-size),
-                height: math.div($line-height, $font-size)
+                height: math.div($line-height, $font-size),
+                gap: $gap
             ));
         }
     }

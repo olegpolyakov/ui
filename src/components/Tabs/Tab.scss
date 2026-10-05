@@ -1,20 +1,68 @@
+@use 'sass:map';
+
 @use 'base';
 @use 'component';
 
-$height: 36px !default;
-$gap: base.var(space-xs) !default;
-$border-color: null !default;
-$border-radius: 0px !default;
-$border-width: 0px !default;
-$foreground-color: base.var(foreground-color) !default;
-$indicator-width: 2px !default;
+$xs: (
+    height: 24px,
+    radius: base.var(radius-s),
+    padding: base.var(space-xs),
+    gap: base.var(space-xxs),
+    font-size: base.var(font-size-xs)
+) !default;
+
+$s: (
+    height: 28px,
+    radius: base.var(radius-s),
+    padding: base.var(space-xs),
+    gap: base.var(space-xxs),
+    font-size: base.var(font-size-s)
+) !default;;
+
+$m: (
+    height: 32px,
+    radius: base.var(radius-m),
+    padding: base.var(space-s),
+    gap: base.var(space-xxs),
+    font-size: base.var(font-size-m)
+) !default;;
+
+$l: (
+    height: 40px,
+    radius: base.var(radius-m),
+    padding: base.var(space-m),
+    gap: base.var(space-xs),
+    font-size: base.var(font-size-l)
+) !default;;
+
+$xl: (
+    height: 48px,
+    radius: base.var(radius-l),
+    padding: base.var(space-m),
+    gap: base.var(space-xs),
+    font-size: base.var(font-size-xl)
+) !default;
+
+$sizes: (
+    xs: $xs,
+    s: $s,
+    m: $m,
+    l: $l,
+    xl: $xl
+) !default;
+
+$height: map.get($m, height) !default;
+$padding: map.get($m, padding) !default;
+$gap: map.get($m, gap) !default;
+$radius: map.get($m, radius) !default;
+$font-size: map.get($m, font-size) !default;
+$font-weight: base.var(font-weight-normal) !default;
 
 $vars: component.vars(Tab, (
     height: $height,
+    padding: $padding,
     gap: $gap,
-    border-color: $border-color,
-    border-radius: $border-radius,
-    border-width: $border-width,
-    foreground-color: $foreground-color,
-    indicator-width: $indicator-width
+    radius: $radius,
+    font-size: $font-size,
+    font-weight: $font-weight
 ));

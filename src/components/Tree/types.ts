@@ -1,11 +1,12 @@
 export interface Item {
     id: string;
+    content?: string;
     children: Item[];
     collapsed?: boolean;
 }
 
 export interface FlattenedItem extends Item {
-    parentId: string | null;
     depth: number;
     index: number;
+    parentId: string | null;
 }

@@ -1,8 +1,11 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import { getDefaultTheme, onThemeChange, type Theme } from '../../theme';
+import { useTheme } from '../../hooks/theme';
+import type { Theme } from '../../theme';
 import type { Props } from '../../types';
 import { cn } from '../../utils';
+
+import Context from './ProviderContext';
 
 import styles from './Provider.module.scss';
 
@@ -10,37 +13,17 @@ export type ProviderProps = {
     theme?: Theme;
 };
 
-export const Context = createContext<{
-    rootElement: HTMLElement | null;
-    theme: Theme | undefined;
-}>({
-    rootElement: null,
-    theme: undefined
-});
-
 Provider.displayName = 'Provider';
 
-const defaultTheme = getDefaultTheme();
-
 export default function Provider({
+    theme: defaultTheme,
+
     children,
-    className,
-    
-    theme,
+    className, 
     ...props
 }: Props<ProviderProps>) {
-    const [rootElement, setRootElement] = useState<HTMLElement | null>(null);
-
-    
-    useEffect(() => {
-        rootElement?.setAttribute('data-theme', theme || defaultTheme);
-
-        return onThemeChange(newTheme => {
-            if (!theme) {
-                rootElement?.setAttribute('data-theme', newTheme);
-            }
-        });
-    }, [rootElement, theme]);
+    const [root, setRoot] = useState<HTMLElement | null>(null);
+    const [theme, setTheme] = useTheme(defaultTheme, root ?? undefined);
 
     const classNames = cn(
         className,
@@ -48,13 +31,14 @@ export default function Provider({
     );
 
     const value = useMemo(() => ({
-        rootElement,
-        theme
-    }), [rootElement, theme]);
+        root,
+        theme,
+        setTheme
+    }), [root, theme, setTheme]);
 
     return (
         <div
-            ref={setRootElement}
+            ref={setRoot}
             className={classNames}
             data-theme={theme}
             {...props}

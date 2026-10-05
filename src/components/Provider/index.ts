@@ -1,6 +1,10 @@
 export {
     default,
     default as Provider,
-    Context as ProviderContext,
     type ProviderProps 
 } from './Provider';
+
+export {
+    default as ProviderContext,
+    type ProviderContextValue
+} from './ProviderContext';

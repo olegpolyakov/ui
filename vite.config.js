@@ -9,6 +9,10 @@ export default defineConfig({
         copy({
             targets: [
                 {
+                    src: 'src/images',
+                    dest: '.'
+                },
+                {
                     src: 'src/styles',
                     dest: '.'
                 }
@@ -18,7 +22,7 @@ export default defineConfig({
     build: {
         lib: {
             entry: path.resolve(__dirname, 'src/index.ts'),
-            name: 'KantanUI',
+            name: 'OPUI',
             fileName: 'index',
             cssFileName: 'index'
         },
@@ -40,17 +44,20 @@ export default defineConfig({
                 const file = path.basename(filename, '.module.scss');
             
                 if (file === 'classes') {
-                    return `kui-${name}`;
+                    return `ui-${name}`;
                 } else if (name === 'root') {
-                    return `kui-${file}`;
+                    return `ui-${file}`;
                 } else {
-                    return `kui-${file}-${name}`;
+                    return `ui-${file}-${name}`;
                 }
             }
         },
         preprocessorOptions: {
             scss: {
-                loadPaths: [path.resolve(__dirname, 'src/styles')]
+                loadPaths: [path.resolve(__dirname, 'src/styles')],
+                silenceDeprecations: [
+                    'if-function'
+                ]
             }
         }
     },

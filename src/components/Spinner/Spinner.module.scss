@@ -9,7 +9,7 @@
         display: inline-block;
         width: component.var(size);
         height: component.var(size);
-        border: calc(component.var(size) * .1) solid component.var(color);
+        border: round(down, calc(component.var(size) * .1), 1px) solid component.var(color);
         border-right-color: transparent;
         border-radius: 50%;
         animation: component.var(speed) linear infinite spin;

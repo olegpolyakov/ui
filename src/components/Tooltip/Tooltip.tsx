@@ -50,7 +50,7 @@ export default function Tooltip({
     const arrowRef = useRef<SVGSVGElement>(null);
     const timeoutRef = useRef<number | null>(null);
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setOpen] = useState(false);
 
     const {
         refs,
@@ -62,7 +62,7 @@ export default function Tooltip({
         placement,
         whileElementsMounted: autoUpdate,
         open: isOpen,
-        onOpenChange: setIsOpen,
+        onOpenChange: setOpen,
         middleware: [
             flip(),
             shift(),
@@ -75,7 +75,7 @@ export default function Tooltip({
 
     const handleTargetMouseEnter = useCallback<MouseEventHandler<HTMLDivElement>>(event => {
         timeoutRef.current = window.setTimeout(() => {
-            setIsOpen(true);
+            setOpen(true);
         }, 500);
 
         if (
@@ -84,10 +84,10 @@ export default function Tooltip({
         ) {
             children.props.onMouseEnter(event);
         }
-    }, [children]);
+    }, [children, setOpen]);
 
     const handleTargetMouseLeave = useCallback<MouseEventHandler<HTMLDivElement>>(event => {
-        setIsOpen(false);
+        setOpen(false);
 
         window.clearTimeout(timeoutRef.current!);
         timeoutRef.current = null;
@@ -98,7 +98,7 @@ export default function Tooltip({
         ) {
             children.props.onMouseLeave(event);
         }
-    }, [children]);
+    }, [children, setOpen]);
     
     const handleTargetClick = useCallback<MouseEventHandler<HTMLDivElement>>(event => {
         window.clearTimeout(timeoutRef.current!);
@@ -115,15 +115,15 @@ export default function Tooltip({
         event.stopPropagation();
         event.preventDefault();
 
-        setIsOpen(true);
-    }, []);
+        setOpen(true);
+    }, [setOpen]);
 
     const handleTooltipMouseLeave = useCallback((event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         event.preventDefault();
 
-        setIsOpen(false);
-    }, []);
+        setOpen(false);
+    }, [setOpen]);
 
     const classNames = cn(
         className,

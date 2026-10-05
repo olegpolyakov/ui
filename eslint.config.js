@@ -22,7 +22,8 @@ const common = {
         'quotes': ['error', 'single'],
         'semi': ['error', 'always'],
         'react/react-in-jsx-scope': 'off',
-        'react-hooks/refs': 'warn'
+        'react-hooks/refs': 'warn',
+        'react-hooks/set-state-in-effect': 'warn'
     },
     settings: {
         react: {
@@ -61,7 +62,8 @@ export default [
         },
         rules: {
             ...typeScriptPlugin.configs.recommended.rules,
-            ...common.rules
+            ...common.rules,
+            '@typescript-eslint/no-unused-vars': 'warn'
         },
         settings: {
             ...common.settings

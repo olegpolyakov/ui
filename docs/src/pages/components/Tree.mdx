@@ -11,22 +11,24 @@ Tree is a component that displays a collection of items in a structured tree for
 <Demo settings={Tree.settings}>
     <Tree
         items={[
-            { content: 'Home' },
+            { id: 'home', content: 'Home' },
             {
+                id: 'Collections',
                 content: 'Collections',
                 children: [
-                    { content: 'Spring' },
-                    { content: 'Summer' },
-                    { content: 'Fall' },
-                    { content: 'Winter' }
+                    { id: 'spring', content: 'Spring' },
+                    { id: 'summer', content: 'Summer' },
+                    { id: 'fall', content: 'Fall' },
+                    { id: 'winter', content: 'Winter' }
                 ]
             },
-            { content: 'About Us' },
+            { id: 'about', content: 'About Us' },
             {
+                id: 'account',
                 content: 'My Account',
                 children: [
-                    { content: 'Addresses' },
-                    { content: 'Order History' }
+                    { id: 'addresses', content: 'Addresses' },
+                    { id: 'orders', content: 'Orders' }
                 ]
             }
         ]}
@@ -38,30 +40,26 @@ Tree is a component that displays a collection of items in a structured tree for
 <Section>
     <SortableTree
         items={[
-             {
-                id: 'Home',
-                children: [],
-            },
+            { id: 'home', content: 'Home' },
             {
-                id: 'Collections',
+                id: 'collections',
+                content: 'Collections',
                 children: [
-                    {id: 'Spring', children: []},
-                    {id: 'Summer', children: []},
-                    {id: 'Fall', children: []},
-                    {id: 'Winter', children: []},
-                ],
+                    { id: 'spring', content: 'Spring' },
+                    { id: 'summer', content: 'Summer' },
+                    { id: 'fall', content: 'Fall' },
+                    { id: 'winter', content: 'Winter' }
+                ]
             },
+            { id: 'about', content: 'About Us' },
             {
-                id: 'About Us',
-                children: [],
-            },
-            {
-                id: 'My Account',
+                id: 'account',
+                content: 'My Account',
                 children: [
-                    {id: 'Addresses', children: []},
-                    {id: 'Order History', children: []},
-                ],
-            },
+                    { id: 'addresses', content: 'Addresses' },
+                    { id: 'orders', content: 'Orders' }
+                ]
+            }
         ]}
         onChange={() => {}}
     />

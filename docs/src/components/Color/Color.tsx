@@ -18,7 +18,7 @@ export default function Color({
             style={{
                 // @ts-ignore
                 '--background-color': value,
-                '--foreground-color': `var(--kui-${name.toLowerCase()}-contrast-color)`
+                '--foreground-color': `var(--ui-${name.toLowerCase()}-contrast-color)`
             }}
             {...props}
         >

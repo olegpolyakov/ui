@@ -1,23 +1,41 @@
+import type { ReactElement } from 'react';
+
+import { Draggable } from '@dnd-kit/dom';
 import { DragDropProvider, DragOverlay } from '@dnd-kit/react';
 
 import { cn } from '../../component';
 import type { ComponentProps, ElementType } from '../../types';
 
-import Button from '../Button';
+import Badge from '../Badge';
+import Icon from '../Icon';
+import Item from '../Item';
+import Sortable, { SortableApi } from '../Sortable';
 
-import SortableTreeItem from './SortableTreeItem';
-import SortableTreeItemOverlay from './SortableTreeItemOverlay';
+import type { TreeProps } from './Tree';
 import { buildTree, flattenTree } from './helpers';
-import type { Item } from './types';
+import type { FlattenedItem, Item as TreeItem } from './types';
 import useSortableTree from './useSortableTree';
 
-import styles from './Tree.module.scss';
+import baseStyles from './Tree.module.scss';
+import sortableStyles from './SortableTree.module.scss';
 
-export type SortableTreeProps = {
-  items: Item[];
+export type SortableTreeProps = Omit<TreeProps, 'renderItem'> & {
+  items: TreeItem[];
   indentation?: number;
-  onChange: (items: Item[]) => void;
+  renderItem?: (item: FlattenedItem, sortable: SortableApi, removeItem: () => void) => ReactElement;
+  renderOverlay?: (draggable: Draggable, childrenCount: number) => ReactElement;
+  onChange: (items: TreeItem[]) => void;
 }
+
+const config = {
+    alignment: {
+        x: 'start',
+        y: 'center'
+    },
+    transition: {
+        idle: true
+    }
+} as const;
 
 SortableTree.displayName = 'SortableTree';
 
@@ -25,9 +43,15 @@ export default function SortableTree<T extends ElementType = 'ul'>({
     as,
     className,
 
+    gap,
+    size,
+    shape,
+    variant,
+    interactive,
     items = [],
     indentation = 50,
-    canRemove,
+    renderItem,
+    renderOverlay,
     onChange,
     ...props
 }: ComponentProps<SortableTreeProps, T>) {
@@ -41,20 +65,23 @@ export default function SortableTree<T extends ElementType = 'ul'>({
         handleDragEnd
     } = useSortableTree(items, indentation, onChange);
 
-    const removeItem = (item: Item) => {
+    const Component = as || 'ul';
+    const classNames = cn(
+        className,
+        { gap, interactive: false, sortable: true },
+        {
+            ...baseStyles,
+            sortable: sortableStyles.root
+        }
+    );
+
+    const removeItem = (item: TreeItem) => {
         const newItems = flattenedItems.filter(({ id }) => id !== item.id);
         const tree = buildTree(newItems);
 
         setFlattenedItems(flattenTree(tree));
         onChange?.(tree);
     };
-
-    const Component = as || 'ul';
-    const classNames = cn(
-        className,
-        { interactive: false },
-        styles
-    );
 
     return (
         <DragDropProvider
@@ -65,25 +92,51 @@ export default function SortableTree<T extends ElementType = 'ul'>({
         >
             <Component className={classNames} {...props}>
                 {flattenedItems.map((item, index) => (
-                    <SortableTreeItem
+                    <Sortable
                         key={item.id}
-                        {...item}
+                        id={item.id}
                         index={index}
-                        end={canRemove &&
-                            <Button
-                                icon="remove"
-                                onClick={() => removeItem(item)}
+                        data={{
+                            depth: item.depth,
+                            parentId: item.parentId
+                        }}
+                        {...config}
+                    >
+                        {sortable => renderItem?.(item, sortable, () => removeItem(item)) ?? (
+                            <Item
+                                start={
+                                    <Icon
+                                        className={sortableStyles.handle}
+                                        ref={sortable.handleRef}
+                                        name="drag_indicator"
+                                        size="s"
+                                    />
+                                }
+                                content={item.content}
+                                size={size}
+                                shape={shape}
+                                variant={variant}
+                                interactive={interactive}
+                                data-depth={item.depth}
+                                aria-hidden={sortable.isDragSource}
                             />
-                        }
-                    />
+                        )}
+                    </Sortable>
                 ))}
             </Component>
             
-            <DragOverlay style={{ width: 'min-content' }}>
-                {source => (
-                    <SortableTreeItemOverlay
-                        id={source.id}
-                        count={sourceChildren.current.length}
+            <DragOverlay style={{ width: 'fit-content' }}>
+                {draggable => renderOverlay?.(draggable, sourceChildren.current.length) ?? (
+                    <Item
+                        start={
+                            <Icon name="drag_indicator" size="s" />
+                        }
+                        content={flattenedItems.find(i => i.id === draggable.id)!.content}
+                        end={sourceChildren.current.length > 0 &&
+                                <Badge content={sourceChildren.current.length} />
+                        }
+                        active
+                        data-overlay
                     />
                 )}
             </DragOverlay>

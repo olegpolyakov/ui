@@ -1,15 +1,28 @@
 import {  useEffect, useState } from 'react';
 
-import { Theme, getDefaultTheme } from '../theme';
+import { Theme, getDefaultTheme, onThemeChange } from '../theme';
 
-export function useTheme(initialTheme: Theme = getDefaultTheme()): [Theme, (theme: Theme) => void] {
+export function useTheme(
+    initialTheme: Theme = getDefaultTheme(),
+    root: HTMLElement = document.documentElement
+): [Theme, (theme: Theme) => void] {
     const [theme, setTheme] = useState<Theme>(initialTheme);
 
     useEffect(() => {
-        if (window && document && document.documentElement && theme) {
-            document.documentElement.setAttribute('data-theme', theme);
+        if (theme && root) {
+            root.setAttribute('data-theme', theme);
         }
-    }, [theme]);
+
+        return onThemeChange(newTheme => {
+            if (!theme) {
+                setTheme(theme);
+                
+                if (root) {
+                    root.setAttribute('data-theme', newTheme);
+                }
+            }
+        });
+    }, [theme, root]);
 
     return [theme, setTheme];
 }

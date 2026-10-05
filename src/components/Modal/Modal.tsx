@@ -29,7 +29,7 @@ export default function Modal({
     open = false,
     disableScroll = true
 }: ModalProps) {
-    const { rootElement } = useContext(ProviderContext);
+    const { root } = useContext(ProviderContext);
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -62,7 +62,7 @@ export default function Modal({
     );
 
     return (
-        <Portal container={rootElement ?? container}>
+        <Portal container={root ?? container}>
             <Transition
                 in={open}
                 nodeRef={modalRef}

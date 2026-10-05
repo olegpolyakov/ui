@@ -1,14 +1,14 @@
 @use 'base';
 @use 'component';
 
-// (font-size, line-height)
-$xxs: (16px, 22px) !default;
-$xs: (20px, 28px) !default;
-$s: (24px, 32px) !default;
-$m: (28px, 36px) !default;
-$l: (32px, 40px) !default;
-$xl: (40px, 52px) !default;
-$xxl: (68px, 92px) !default;
+// (font-size, line-height, gap)
+$xxs: (16px, 22px, base.var(space-xs)) !default;
+$xs: (20px, 28px, base.var(space-xs)) !default;
+$s: (24px, 32px, base.var(space-s)) !default;
+$m: (28px, 36px, base.var(space-s)) !default;
+$l: (32px, 40px, base.var(space-s)) !default;
+$xl: (40px, 52px, base.var(space-m)) !default;
+$xxl: (68px, 92px, base.var(space-m)) !default;
 
 $sizes: (
     xxs: $xxs,
@@ -36,8 +36,8 @@ $vars: component.vars(Heading, (
     spacing: $spacing
 ));
 
-@mixin heading($type, $weight: null) {
-    $_sizes: map.get($sizes, $type);
+@mixin heading($size, $weight: bold, $color: primary) {
+    $_sizes: map.get($sizes, $size);
     $font-size: list.nth($_sizes, 1);
     $line-height: list.nth($_sizes, 2);
 
@@ -45,4 +45,5 @@ $vars: component.vars(Heading, (
     font-size: $font-size;
     font-weight: map.get(base.$font-weights, $weight);
     line-height: math.div($line-height, $font-size);
+    color: base.var(foreground-#{$color}-color);
 }

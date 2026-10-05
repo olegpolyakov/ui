@@ -1,36 +1,22 @@
-import { Ref, RefObject, useCallback, useRef } from 'react';
+import { Ref, RefObject, useCallback } from 'react';
 
-export default function useComposedRef<T extends HTMLElement>(
+export function useComposedRef<T extends HTMLElement>(
     libRef: RefObject<T | null>,
-    userRef: Ref<T>
-) {
-    const prevUserRef = useRef<Ref<T> | null>(null);
-
+    userRef?: Ref<T> | null
+): (instance: T | null) => void {
     return useCallback(
         (instance: T | null) => {
-            libRef.current = instance;
-
-            if (prevUserRef.current) {
-                updateRef(prevUserRef.current, null);
-            }
-
-            prevUserRef.current = userRef;
-
-            if (!userRef) {
-                return;
-            }
-
-            updateRef(userRef, instance);
+            setRef(libRef, instance);
+            setRef(userRef, instance);
         },
         [libRef, userRef]
     );
-};
+}
 
-function updateRef<T>(ref: NonNullable<Ref<T>>, value: T | null) {
+function setRef<T>(ref: Ref<T> | null | undefined, value: T | null) {
     if (typeof ref === 'function') {
         ref(value);
-        return;
+    } else if (ref && 'current' in ref) {
+        ref.current = value;
     }
-
-    ref.current = value;
 }
