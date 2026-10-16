@@ -19,6 +19,7 @@
     .surface {
         box-sizing: border-box;
         min-width: 300px;
+        max-height: calc(100dvh - #{component.var(padding)} * 2);
         border-radius: component.var(radius);
         padding: component.var(padding);
         display: flex;
@@ -33,6 +34,7 @@
     }
 
     .content {
+        display: flex;
         font-size: component.var(font-size);
         overflow: auto;
     }

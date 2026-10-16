@@ -143,7 +143,10 @@ export default function Dialog({
                                 size={sizeMap[size]}
                                 variant={closeButtonPosition === 'inside' ? 'plain' : 'plain'}
                                 aria-label="Close dialog"
-                                onClick={onClose}
+                                onClick={(event: MouseEvent<HTMLButtonElement>) => {
+                                    event.stopPropagation();
+                                    onClose();
+                                }}
                             />
                         }
                     </div>
