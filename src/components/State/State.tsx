@@ -36,7 +36,8 @@ export default function State({
     subtitle,
     description,
     action,
-    size = 'm'
+    size = 'm',
+    ...props
 }: ComponentProps<StateProps, 'div'>) {
     const Root = as || 'div';
     const classNames = cn(
@@ -46,7 +47,7 @@ export default function State({
     );
 
     return (
-        <Root className={classNames}>
+        <Root className={classNames} {...props}>
             {image && (
                 <Slot
                     fallback={Image}

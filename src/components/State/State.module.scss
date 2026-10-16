@@ -26,17 +26,5 @@
         text-align: center;
     }
 
-    .title {
-        color: base.var(foreground-color);
-    }
-
-    .subtitle {
-        color: base.var(foreground-color);
-    }
-
-    .description {
-        color: base.var(foreground-color);
-    }
-
     @include component.sizes(State.$sizes);
 }
