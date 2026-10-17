@@ -13,7 +13,7 @@
         border-right-color: transparent;
         border-radius: 50%;
         animation: component.var(speed) linear infinite spin;
-        vertical-align: var(vertical-align, -0.125em);
+        vertical-align: var(--vertical-align, -0.125em);
 
         @include motion.reduced {
             @include component.vars((
