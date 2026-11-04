@@ -40,7 +40,7 @@
 
     @if type.is-color($color) {
         $colors: state-colors($color);
-    } @else if type.is-string($color) {        
+    } @else if type.is-string($color) {
         $colors: (
             'hover': #{$color}-hover,
             'active': #{$color}-active,

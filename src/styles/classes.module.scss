@@ -358,7 +358,7 @@
 }
 
 @each $size in $sizes {
-    .shadow-hover-#{$size} {        
+    .shadow-hover-#{$size} {
         transition: box-shadow 0.15s ease-in-out;
 
         &:hover {
