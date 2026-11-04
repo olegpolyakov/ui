@@ -9,6 +9,7 @@ export type FlexProps = {
     align?: Align;
     justify?: Justify;
     gap?: Space;
+    fluid?: boolean;
     inline?: boolean;
     wrap?: boolean;
 };
@@ -24,6 +25,7 @@ export default function Flex<T extends ElementType = 'div'>({
     align,
     justify,
     gap,
+    fluid,
     inline,
     wrap,
     ...props
@@ -34,6 +36,7 @@ export default function Flex<T extends ElementType = 'div'>({
         column,
         [`align-${align}`]: align,
         [`justify-${justify}`]: justify,
+        fluid,
         inline,
         wrap,
         gap
