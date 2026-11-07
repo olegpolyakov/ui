@@ -1,1 +1,1 @@
-export { default, type TextboxProps } from './Textbox';
+export { default, default as Textbox, type TextboxProps } from './Textbox';

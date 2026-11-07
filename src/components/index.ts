@@ -42,6 +42,7 @@ export * from './Table';
 export * from './Tabs';
 export * from './Text';
 export * from './Textarea';
+export * from './Textbox';
 export * from './Toast';
 export * from './Tooltip';
 export * from './Tree';
