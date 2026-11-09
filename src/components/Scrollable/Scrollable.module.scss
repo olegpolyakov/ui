@@ -9,7 +9,7 @@
     overflow: hidden;
 }
 
-.fade {
+.fade[data-scrolling] {
     @include elements.scroll-fade-dynamic;
 }
 
