@@ -7,6 +7,7 @@ import { cn } from '../../utils';
 import Button, { type ButtonProps } from '../Button';
 import Heading, { HeadingProps } from '../Heading';
 import Modal from '../Modal';
+import Scrollable from '../Scrollable';
 import Slot from '../Slot';
 import Transition from '../Transition';
 
@@ -131,9 +132,9 @@ export default function Dialog({
                             </Slot>
                         }
 
-                        <div className={styles.content}>
+                        <Scrollable className={styles.content} fade>
                             {content}
-                        </div>
+                        </Scrollable>
 
                         {closeButton && 
                             <Slot
