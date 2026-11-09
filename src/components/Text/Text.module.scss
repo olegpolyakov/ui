@@ -123,6 +123,8 @@
     }
 
     .ellipsis {
+        overflow: hidden;
+        
         .content {
             white-space: nowrap;
             overflow: hidden;
