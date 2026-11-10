@@ -2,6 +2,7 @@
     "name": "@olegpolyakov/ui",
     "version": "0.11.5",
     "description": "A set of accessible, customizable, and easy-to-use React components.",
+    "author": "Oleg Poliakov <olegpoliakov@outlook.com>",
     "type": "module",
     "main": "./dist/index.js",
     "sass": "./dist/styles/_index.scss",
@@ -25,19 +26,6 @@
             "import": "./dist/styles/*",
             "sass": "./dist/styles/*"
         }
-    },
-    "author": {
-        "name": "Oleg Poliakov",
-        "email": "olegpoliakov@outlook.com"
-    },
-    "scripts": {
-        "build": "vite build && tsc",
-        "build-docs": "vite build --config docs/vite.config.js",
-        "build-sass": "sass src/index.scss dist/index.css",
-        "dev": "vite",
-        "docs": "vite --config docs/vite.config.js",
-        "lint": "eslint ./src",
-        "prepublishOnly": "npm run lint && npm run build"
     },
     "dependencies": {
         "@dnd-kit/helpers": "^0.5.0",
@@ -75,5 +63,21 @@
         "typescript": "^5.9.2",
         "vite": "^7.1.4",
         "vite-plugin-svgr": "^4.5.0"
+    },
+    "scripts": {
+        "build": "vite build && tsc",
+        "build-docs": "vite build --config docs/vite.config.js",
+        "build-sass": "sass src/index.scss dist/index.css",
+        "dev": "vite",
+        "docs": "vite --config docs/vite.config.js",
+        "lint": "eslint ./src",
+        "prepublishOnly": "npm run lint && npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/olegpolyakov/ui.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
     }
 }
