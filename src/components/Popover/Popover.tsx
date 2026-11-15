@@ -23,6 +23,7 @@ import {
     autoUpdate,
     arrow,
     offset,
+    shift,
     useFloating
 } from '@floating-ui/react';
 
@@ -121,6 +122,9 @@ export default function Popover({
                     : offsetValue
                 )
                 : undefined,
+            shift({
+                padding: 8
+            }),
             showArrow && arrow({
                 element: arrowRef
             }),
