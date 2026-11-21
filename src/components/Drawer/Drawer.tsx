@@ -146,7 +146,7 @@ export default function Drawer<T extends ElementType = 'div'>({
                         </div>
                     }
 
-                    {isBoolean(scrollable) ?
+                    {isBoolean(scrollable) && scrollable ?
                         <Scrollable className={styles.content}>
                             {content}
                         </Scrollable> :
